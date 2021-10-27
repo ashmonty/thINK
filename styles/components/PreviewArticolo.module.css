@@ -1,0 +1,36 @@
+a.previewArticolo {
+  display: flex;
+  flex-direction: column;
+  background: var(--foreground);
+  border: 2px solid var(--foreground);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: 250ms;
+}
+
+a.previewArticolo:hover {
+  transform: scale(1.01);
+  box-shadow: 5px 5px 20px var(--foreground-shadow);
+}
+
+a.previewArticolo .cover {
+  height: 280px;
+  transform: scale(
+    1.02
+  ); /* Per nascondere gli eventuali bordi dell'immagine di copertina */
+}
+
+a.previewArticolo .testo {
+  margin: 28px;
+  height: fit-content;
+}
+
+a .testo .titolo {
+  margin-top: 0;
+}
+
+a .testo .dataPub {
+  text-align: right;
+  margin-bottom: 0;
+  align-self: flex-end;
+}

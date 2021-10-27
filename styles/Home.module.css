@@ -1,0 +1,12 @@
+div.wrapper {
+  width: 95%;
+  max-width: var(--width);
+  margin: auto;
+}
+
+section.articoli {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 20px;
+  width: 100%;
+}

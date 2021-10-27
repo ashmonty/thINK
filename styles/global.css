@@ -1,0 +1,32 @@
+:root {
+  --width: 1200px;
+  --background: #c9e4f8;
+  --foreground: #fff;
+  --foreground-shadow: #AACFEE;
+  --text: #2577bc;
+  --accent: #ec691f;
+
+  --slab: "Arvo", serif;
+  --sans-serif: "Lato", sans-serif;
+}
+
+/* Arvo e Lato sono i font scelti per l'identità del giornalino */
+@import url("https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+
+html,
+body {
+  position: relative;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  font-family: var(--sans-serif);
+  font-weight: 300;
+  background: var(--background);
+  color: var(--text);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

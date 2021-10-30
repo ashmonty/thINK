@@ -23,6 +23,7 @@ section.articoli {
   padding: 12px;
   border-radius: 6px;
   background: var(--foreground);
+  text-decoration: none;
 }
 
 .paginazione a:hover {

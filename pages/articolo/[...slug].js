@@ -1,7 +1,43 @@
-import React from "react";
-import parse from "html-react-parser";
-export default class PaginaArticolo extends React.Component {
-  render() {
-    return <p>Devo ancora fare questa sezione :/</p>;
-  }
+import Head from "next/head";
+import parse from 'html-react-parser';
+
+import { APIWordPress } from "../../utils";
+
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+
+import styles from "../../styles/Articolo.module.css";
+
+export async function getServerSideProps(context) {
+  let articolo = await APIWordPress("posts", {
+    slug: context.query.slug,
+    _fields: ["date", "title.rendered", "content.rendered"],
+  });
+
+  articolo = articolo[0];
+
+  return {
+    props: { articolo },
+  };
+}
+
+export default function Articolo({ articolo }) {
+  return (
+    <home>
+      <Head>
+        <title>thINK - News dall'ITIS Biella</title>
+      </Head>
+
+      <Header />
+
+      <div className={styles.wrapper}>
+        <section className={styles.articolo}>
+          <h1>{parse(articolo.title.rendered)}</h1>
+          {parse(articolo.content.rendered)}
+        </section>
+      </div>
+
+      <Footer />
+    </home>
+  );
 }

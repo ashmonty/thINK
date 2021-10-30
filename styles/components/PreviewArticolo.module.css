@@ -6,6 +6,7 @@ a.previewArticolo {
   border-radius: 16px;
   overflow: hidden;
   transition: 250ms;
+  text-decoration: none;
 }
 
 a.previewArticolo:hover {

@@ -1,0 +1,36 @@
+div.wrapper {
+  width: 95%;
+  max-width: var(--width);
+  margin: auto;
+}
+
+.articolo {
+    padding: 48px;
+    background-color: var(--foreground);
+    border-radius: 16px;
+}
+
+.articolo img {
+    border-radius: 8px !important;
+}
+
+.articolo h1 {
+    font-size: 2.2em;
+    font-family: var(--slab);
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+
+.articolo h1,
+.articolo h2,
+.articolo h3,
+.articolo h4,
+.articolo h5,
+.articolo h6 {
+    font-family: var(--slab);
+}
+
+.articolo a {
+    color: var(--accent)
+}

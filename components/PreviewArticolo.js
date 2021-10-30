@@ -19,7 +19,7 @@ export default class PreviewArticolo extends React.Component {
         />
         <div className={styles.testo}>
           <h2 className={styles.titolo}>{parse(this.props.titolo)}</h2>
-          <p className={styles.estratto}>{parse(this.props.estratto)}</p>
+          {parse(this.props.estratto)}
           <p className={styles.dataPubblicazione}>
             {new Date(this.props.data).toLocaleDateString("it-IT", {
               year: "numeric",

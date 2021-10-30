@@ -28,9 +28,8 @@ export default function Articolo({ articolo }) {
         <title>thINK - News dall'ITIS Biella</title>
       </Head>
 
-      <Header />
-
       <div className={styles.wrapper}>
+      <Header />
         <section className={styles.articolo}>
           <h1>{parse(articolo.title.rendered)}</h1>
           {parse(articolo.content.rendered)}

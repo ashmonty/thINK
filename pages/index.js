@@ -37,9 +37,8 @@ export default function Home({ articoli, pagina }) {
         <title>thINK - News dall'ITIS Biella</title>
       </Head>
 
-      <Header />
-
       <div className={styles.wrapper}>
+        <Header />
         <section className={styles.articoli}>
           {articoli.map((articolo, index) => {
             return (
@@ -72,13 +71,13 @@ export default function Home({ articoli, pagina }) {
                 <line x1="19" y1="12" x2="5" y2="12"></line>
                 <polyline points="12 19 5 12 12 5"></polyline>
               </svg>
-              Pagina precedente
+              <span className={styles.nascondisutelefono}>Pagina precedente</span>
             </a>
           ) : (
             ""
           )}
           <a href={`/?p=${pagina + 1}`} className={styles.succ}>
-            Pagina successiva
+            <span className={styles.nascondisutelefono}>Pagina successiva</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -96,9 +95,10 @@ export default function Home({ articoli, pagina }) {
             </svg>
           </a>
         </div>
+        <Footer />
       </div>
 
-      <Footer />
+
     </home>
   );
 }

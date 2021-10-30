@@ -1,5 +1,5 @@
 div.wrapper {
-  width: 95%;
+  width: 90%;
   max-width: var(--width);
   margin: auto;
 }
@@ -32,4 +32,16 @@ section.articoli {
 
 .paginazione a.succ {
   margin-left: auto;
+}
+
+@media screen and (max-width: 700px) {
+  section.articoli {
+    grid-template-columns: repeat(1, auto);
+  }
+}
+
+@media screen and (max-width: 450px) {
+  span.nascondisutelefono {
+    display: none;
+  }
 }

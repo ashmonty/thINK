@@ -10,15 +10,13 @@ a.previewArticolo {
 }
 
 a.previewArticolo:hover {
-  transform: scale(1.01);
+  /*transform: scale(1.01);*/
   box-shadow: 5px 5px 20px var(--foreground-shadow);
 }
 
 a.previewArticolo .cover {
   height: 280px;
-  transform: scale(
-    1.02
-  ); /* Per nascondere gli eventuali bordi dell'immagine di copertina */
+  transform: scale(1.02); /* Per nascondere gli eventuali bordi dell'immagine di copertina */
 }
 
 a.previewArticolo .testo {

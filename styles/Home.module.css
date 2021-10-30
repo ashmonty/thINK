@@ -10,3 +10,25 @@ section.articoli {
   gap: 20px;
   width: 100%;
 }
+
+.paginazione {
+  margin-top: 20px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.paginazione a {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 6px;
+  background: var(--foreground);
+}
+
+.paginazione a:hover {
+  box-shadow: 5px 5px 15px var(--foreground-shadow);
+}
+
+.paginazione a.succ {
+  margin-left: auto;
+}

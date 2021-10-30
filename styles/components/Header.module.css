@@ -1,0 +1,18 @@
+.header {
+  width: 100%;
+  text-align: center;
+  margin: 80px 0;
+}
+
+.header a {
+  color: var(--accent);
+  font-family: var(--slab);
+  font-weight: 600;
+  font-size: 56px;
+  margin: 0;
+}
+
+.header p {
+  margin-top: 12px;
+  font-size: 20px;
+}

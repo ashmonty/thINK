@@ -1,3 +1,12 @@
+import styles from "../styles/components/Header.module.css"
+
 export default function Header() {
-  return null;
+  return (
+    <header className={styles.header}>
+      <a href="/">thINK</a>
+      <p>
+        Il giornalino <i>degli</i> studenti, <i>per</i> gli studenti
+      </p>
+    </header>
+  );
 }

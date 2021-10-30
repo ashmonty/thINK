@@ -23,14 +23,12 @@ a.previewArticolo .cover {
 a.previewArticolo .testo {
   margin: 28px;
   height: fit-content;
+  position: relative;
 }
 
 a .testo .titolo {
   margin-top: 0;
+  font-family: var(--slab);
+  font-weight: 500;
 }
 
-a .testo .dataPub {
-  text-align: right;
-  margin-bottom: 0;
-  align-self: flex-end;
-}

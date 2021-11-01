@@ -56,13 +56,12 @@ figure.wp-block-image {
   border-radius: 8px;
 }
 
-figure img {
+/*figure img {
   width: 100%;
-}
+}*/
 
 .wp-block-embed.is-type-video {
   display: flex;
-
   justify-content: center;
 }
 

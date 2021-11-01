@@ -12,6 +12,7 @@ a.previewArticolo {
 a.previewArticolo:hover {
   /*transform: scale(1.01);*/
   box-shadow: 5px 5px 20px var(--foreground-shadow);
+  text-decoration: underline;
 }
 
 a.previewArticolo .cover {

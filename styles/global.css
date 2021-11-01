@@ -1,7 +1,7 @@
 :root {
   --width: 1200px;
 
-  --background: #edf6fd;
+  --background: #cfe5ee;
   --foreground: #fff;
   --foreground-shadow: #aacfee;
   --text: #1e6299;
@@ -36,6 +36,14 @@ a {
 
 p {
   text-align: justify;
+}
+
+.visibilityHidden {
+  visibility: hidden;
+}
+
+.twitter-share-button {
+  margin-right: 8px;
 }
 
 .has-background {

@@ -31,6 +31,19 @@ div.wrapper {
   color: var(--accent);
 }
 
+.condividi {
+  display: flex;
+
+}
+
+.categorie div {
+  display: inline-block;
+  margin-top: 48px;
+}
+.categorie div p {
+  display: inline-block;
+}
+
 @media screen and (max-width: 800px) {
   .articolo {
     padding: 36px;
@@ -42,7 +55,7 @@ div.wrapper {
     padding: 24px;
   }
 
-  span.nascondisutelefono {
+  span.nascondiMobile {
     display: none;
   }
 }

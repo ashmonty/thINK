@@ -14,7 +14,6 @@
 /* Arvo e Lato sono i font scelti per l'identità del giornalino */
 @import url("https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Lato:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
 
-
 @import url("https://notizie.itis.biella.it/wp-includes/css/dist/block-library/style.min.css?ver=5.8.1");
 
 html,
@@ -42,10 +41,6 @@ p {
   visibility: hidden;
 }
 
-.twitter-share-button {
-  margin-right: 8px;
-}
-
 .has-background {
   border-radius: 8px;
 }
@@ -57,13 +52,17 @@ figure.wp-block-image {
   align-items: center;
 }
 
+.wp-block-embed.is-type-video iframe {
+  border-radius: 8px;
+}
+
 figure img {
   width: 100%;
 }
 
 .wp-block-embed.is-type-video {
   display: flex;
-  
+
   justify-content: center;
 }
 

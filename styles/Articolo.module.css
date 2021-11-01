@@ -31,17 +31,33 @@ div.wrapper {
   color: var(--accent);
 }
 
-.condividi {
+div.fondo {
   display: flex;
-
+  align-items: end;
 }
 
-.categorie div {
-  display: inline-block;
-  margin-top: 48px;
+.fondo .categorie {
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+  margin-top: 36px;
 }
-.categorie div p {
-  display: inline-block;
+
+.fondo div.categoria {
+  display: inline;
+}
+.fondo div.categoria p {
+  display: inline;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.social > * {
+  margin-left: 8px;
 }
 
 @media screen and (max-width: 800px) {

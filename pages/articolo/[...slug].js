@@ -54,45 +54,47 @@ export default function Articolo({ articolo }) {
         <section className={styles.articolo}>
           <h1>{parse(articolo.title.rendered)}</h1>
           {parse(articolo.content.rendered)}
-          <div className={styles.categorie}>
-            Categorie:
-            {articolo._embedded["wp:term"][0].map((categoria, i) => {
-              if (i === 0) {
-                return (
-                  <div>
-                    <p>&nbsp;</p>
-                    <a href={`/categoria/${categoria.slug}`}>
-                      {categoria.name}
-                    </a>
-                  </div>
-                );
-              } else {
-                return (
-                  <div>
-                    <p>,&nbsp;</p>
-                    <a href={`/categoria/${categoria.slug}`}>
-                      {categoria.name}
-                    </a>
-                  </div>
-                );
-              }
-            })}
-          </div>
-          <div className={styles.condividi}>
-            <a
-              href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-              class="twitter-share-button"
-              data-text={parse(articolo.title.rendered)}
-              data-size="large"
-              data-show-count="false"
-            >
-              Twitta
-            </a>
-            <div
-              class="fb-share-button"
-              data-layout="button"
-              data-size="large"
-            />
+          <div className={styles.fondo}>
+            <div className={styles.categorie}>
+              Categorie:
+              {articolo._embedded["wp:term"][0].map((categoria, i) => {
+                if (i === 0) {
+                  return (
+                    <div className={styles.categoria}>
+                      <p>&nbsp;</p>
+                      <a href={`/categoria/${categoria.slug}`}>
+                        {categoria.name}
+                      </a>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div className={styles.categoria}>
+                      <p>,&nbsp;</p>
+                      <a href={`/categoria/${categoria.slug}`}>
+                        {categoria.name}
+                      </a>
+                    </div>
+                  );
+                }
+              })}
+            </div>
+            <div className={styles.social}>
+              <a
+                href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+                class="twitter-share-button"
+                data-text={parse(articolo.title.rendered)}
+                data-size="large"
+                data-show-count="false"
+              >
+                Twitta
+              </a>
+              <div
+                class="fb-share-button"
+                data-layout="button"
+                data-size="large"
+              />
+            </div>
           </div>
         </section>
       </div>

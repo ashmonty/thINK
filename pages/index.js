@@ -25,12 +25,22 @@ export async function getServerSideProps(context) {
       "jetpack_featured_media_url",
     ],
   });
+
+  const paginaSuccessiva = await APIWordPress("posts", {
+    page: pagina + 1,
+    per_page: 6,
+    _fields: ["pid"],
+  });
+
+  // Se non c'è una pagina successiva, la variabile "succ" è settata su false, per nascondere il tasto per la pagina successiva
+  const succ = paginaSuccessiva?.data?.status !== 400;
+
   return {
-    props: { articoli, pagina },
+    props: { articoli, pagina, succ },
   };
 }
 
-export default function Home({ articoli, pagina }) {
+export default function Home({ articoli, pagina, succ }) {
   return (
     <home>
       <Head>
@@ -40,18 +50,30 @@ export default function Home({ articoli, pagina }) {
       <div className={styles.wrapper}>
         <Header />
         <section className={styles.articoli}>
-          {articoli.map((articolo, index) => {
-            return (
-              <PreviewArticolo
-                cover={articolo.jetpack_featured_media_url}
-                titolo={articolo.title.rendered}
-                estratto={articolo.excerpt.rendered}
-                data={articolo.date}
-                slug={articolo.slug}
-                key={index}
-              />
-            );
-          })}
+          {(() => {
+            try {
+              return articoli.map((articolo, index) => {
+                return (
+                  <PreviewArticolo
+                    cover={articolo.jetpack_featured_media_url}
+                    titolo={articolo.title.rendered}
+                    estratto={articolo.excerpt.rendered}
+                    data={articolo.date}
+                    slug={articolo.slug}
+                    key={index}
+                  />
+                );
+              });
+            } catch {
+              return (
+                <div style={{ marginBottom: "192px" }}>
+                  <h1>404</h1>
+                  <p>Sicuro di essere alla pagina giusta?</p>
+                  <a href="/">Torna alla pagina principale</a>
+                </div>
+              );
+            }
+          })()}
         </section>
         <div className={styles.paginazione}>
           <a
@@ -76,7 +98,10 @@ export default function Home({ articoli, pagina }) {
             <span className={styles.nascondiMobile}>Pagina precedente</span>
           </a>
 
-          <a href={`/?p=${pagina + 1}`}>
+          <a
+            href={`/?p=${pagina + 1}`}
+            className={succ ? "" : "visibilityHidden"}
+          >
             <span className={styles.nascondiMobile}>Pagina successiva</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"

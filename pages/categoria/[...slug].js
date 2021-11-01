@@ -14,23 +14,17 @@ export async function getServerSideProps(context) {
     pagina = 1;
   }
 
-  console.log(context.query.slug)
-
   let categoria = await APIWordPress(`categories`, {
     search: context.query.slug[0],
-    _fields: [
-      "id",
-      "name",
-      "slug",
-    ],
+    _fields: ["id", "name", "slug"],
   });
 
-  categoria = categoria[0]
+  categoria = categoria[0] || null;
 
   const articoli = await APIWordPress("posts", {
     page: pagina,
     per_page: 6,
-    categories: categoria.id,
+    categories: categoria?.id,
     _fields: [
       "date",
       "slug",
@@ -39,12 +33,23 @@ export async function getServerSideProps(context) {
       "jetpack_featured_media_url",
     ],
   });
+
+  const paginaSuccessiva = await APIWordPress("posts", {
+    page: pagina + 1,
+    per_page: 6,
+    categories: categoria?.id,
+    _fields: ["pid"],
+  });
+
+  // Se non c'è una pagina successiva, la variabile "succ" è settata su false, per nascondere il tasto per la pagina successiva
+  const succ = paginaSuccessiva?.data?.status !== 400;
+
   return {
-    props: { articoli, pagina, categoria },
+    props: { articoli, pagina, categoria, succ },
   };
 }
 
-export default function Home({ articoli, pagina, categoria }) {
+export default function Home({ articoli, pagina, categoria, succ }) {
   return (
     <home>
       <Head>
@@ -53,24 +58,38 @@ export default function Home({ articoli, pagina, categoria }) {
 
       <div className={styles.wrapper}>
         <Header />
-        <h2>Categoria: {categoria.name}</h2>
+        <div className={styles.categoria}>
+          <h2>Categoria: {categoria?.name}</h2>
+        </div>
         <section className={styles.articoli}>
-          {articoli.map((articolo, index) => {
-            return (
-              <PreviewArticolo
-                cover={articolo.jetpack_featured_media_url}
-                titolo={articolo.title.rendered}
-                estratto={articolo.excerpt.rendered}
-                data={articolo.date}
-                slug={articolo.slug}
-                key={index}
-              />
-            );
-          })}
+          {(() => {
+            try {
+              return articoli.map((articolo, index) => {
+                return (
+                  <PreviewArticolo
+                    cover={articolo.jetpack_featured_media_url}
+                    titolo={articolo.title.rendered}
+                    estratto={articolo.excerpt.rendered}
+                    data={articolo.date}
+                    slug={articolo.slug}
+                    key={index}
+                  />
+                );
+              });
+            } catch {
+              return (
+                <div style={{ marginBottom: "192px" }}>
+                  <h1>404</h1>
+                  <p>Sicuro di essere alla pagina giusta?</p>
+                  <a href="/">Torna alla pagina principale</a>
+                </div>
+              );
+            }
+          })()}
         </section>
         <div className={styles.paginazione}>
           <a
-            href={`?p=${pagina - 1}`}
+            href={pagina - 1 === 1 ? "?" : `?p=${pagina - 1}`}
             className={pagina > 1 ? "" : "visibilityHidden"}
           >
             <svg
@@ -91,7 +110,10 @@ export default function Home({ articoli, pagina, categoria }) {
             <span className={styles.nascondiMobile}>Pagina precedente</span>
           </a>
 
-          <a href={`?p=${pagina + 1}`}>
+          <a
+            href={`?p=${pagina + 1}`}
+            className={succ ? "" : "visibilityHidden"}
+          >
             <span className={styles.nascondiMobile}>Pagina successiva</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"

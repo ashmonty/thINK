@@ -1,6 +1,6 @@
 a.previewArticolo {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: repeat(4, auto);
   background: var(--foreground);
   border: 2px solid var(--foreground);
   border-radius: 16px;
@@ -17,7 +17,9 @@ a.previewArticolo:hover {
 
 a.previewArticolo .cover {
   height: 280px;
-  transform: scale(1.02); /* Per nascondere gli eventuali bordi dell'immagine di copertina */
+  transform: scale(
+    1.02
+  ); /* Per nascondere gli eventuali bordi dell'immagine di copertina */
 }
 
 a.previewArticolo .testo {
@@ -26,9 +28,26 @@ a.previewArticolo .testo {
   position: relative;
 }
 
-a .testo .titolo {
-  margin-top: 0;
+a .titolo {
+  margin: 28px;
+  margin-bottom: 7px;
   font-family: var(--slab);
   font-weight: 500;
 }
 
+a .estratto {
+  margin: 0 28px;
+  margin-bottom: 7px;
+}
+
+a .estratto {
+  margin: 0 28px;
+  margin-bottom: 7px;
+}
+
+a .dataPub {
+  margin: 0 28px;
+  margin-bottom: 28px;
+  justify-self: end;
+  align-self: end;
+}

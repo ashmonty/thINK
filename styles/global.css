@@ -1,14 +1,22 @@
 :root {
   --width: 1200px;
 
-  --background: #cfe5ee;
-  --foreground: #fff;
-  --foreground-shadow: #aacfee;
+  --background: #fff;
+  --foreground: #ddecf8;
   --text: #1e6299;
-  --accent: #ec691f;
+  --accent: 239, 117, 48;
 
   --slab: "Arvo", serif;
   --sans-serif: "Lato", sans-serif;
+
+  /* Gli accent per le varie categorie */
+  --accent-h2oggi-scienze-e-tecnologia: 41, 191, 18;
+  --accent-area-discussione: 136, 118, 254; /* Da cambiare */
+  --accent-talking-about-discussione-su-temi: 91, 146, 121; /* Da cambiare */
+  --accent-onda-studentesca-vita-scolastica: 236, 105, 31; /* Da cambiare */
+  --accent-oltre-agli-articoli-artecinema-e-lettere: 236, 105, 31; /* Da cambiare */
+  --accent-itis-us: 239, 117, 48;
+  --accent-default: 30, 98, 153;
 }
 
 /* Arvo e Lato sono i font scelti per l'identità del giornalino */
@@ -20,6 +28,9 @@ html,
 body {
   position: relative;
   width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column;
   padding: 0;
   margin: 0;
   overflow-x: hidden;
@@ -35,6 +46,7 @@ a {
 
 p {
   text-align: justify;
+  overflow-wrap: break-word;
 }
 
 .visibilityHidden {
@@ -42,7 +54,7 @@ p {
 }
 
 .has-background {
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .wp-block-embed .wp-block-embed__wrapper,
@@ -52,13 +64,13 @@ figure.wp-block-image {
   align-items: center;
 }
 
-.wp-block-embed.is-type-video iframe {
-  border-radius: 8px;
+.wp-block-image figcaption {
+  text-align: center;
 }
 
-/*figure img {
-  width: 100%;
-}*/
+.wp-block-embed.is-type-video iframe {
+  border-radius: 6px;
+}
 
 .wp-block-embed.is-type-video {
   display: flex;
@@ -66,8 +78,16 @@ figure.wp-block-image {
 }
 
 .wp-block-file__embed {
-  border-radius: 8px;
+  border-radius: 6px;
   overflow: hidden;
+}
+
+footer {
+  margin-top: auto;
+}
+
+footer p {
+  text-align: center;
 }
 
 @media screen and (max-width: 400px) {

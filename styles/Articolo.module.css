@@ -6,17 +6,18 @@ div.wrapper {
 
 .articolo {
   padding: 48px;
-  background-color: var(--foreground);
-  border-radius: 16px;
+  background-color: #fff;
+  border-radius: 12px;
   margin-bottom: 48px;
 }
 
 .articolo img {
-  border-radius: 8px !important;
+  border-radius: 6px !important;
   height: auto;
 }
 
 .articolo h1 {
+  color: var(--accent);
   font-size: 2.2em;
   font-family: var(--slab);
   font-weight: 700;
@@ -33,7 +34,8 @@ div.wrapper {
 
 div.fondo {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
+  width: 100%;
 }
 
 .fondo .categorie {
@@ -43,26 +45,53 @@ div.fondo {
   margin-top: 36px;
 }
 
-.fondo div.categoria {
-  display: inline;
-}
-.fondo div.categoria p {
-  display: inline;
+.fondo a.categoria {
+  margin: 4px;
+  white-space: nowrap;
+  width: fit-content;
+  padding: 4px;
+  border-radius: 4px;
+  text-decoration: none;
 }
 
-.social {
+.fondo a.categoria:hover {
+  text-decoration: underline;
+}
+
+.fondo .social {
   display: flex;
+  flex-flow: row wrap;
   align-items: center;
+  justify-content: flex-end;
   margin-left: auto;
+  flex-shrink: 0;
+  color: rgb(var(--accent));
 }
 
-.social > * {
-  margin-left: 8px;
+.fondo .social > * {
+  margin: 4px 4px 0 0;
+}
+
+footer.footer {
+  color: var(--accent);
+  width: fit-content;
+  margin: auto;
 }
 
 @media screen and (max-width: 800px) {
   .articolo {
     padding: 36px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  div.fondo {
+    flex-flow: column;
+    align-items: baseline;
+  }
+
+  .fondo .social {
+    margin-top: 24px;
   }
 }
 

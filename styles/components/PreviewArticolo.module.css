@@ -1,22 +1,19 @@
 a.previewArticolo {
   display: grid;
   grid-template-rows: repeat(4, auto);
-  background: var(--foreground);
-  border: 2px solid var(--foreground);
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
   transition: 250ms;
   text-decoration: none;
 }
 
 a.previewArticolo:hover {
-  /*transform: scale(1.01);*/
-  box-shadow: 5px 5px 20px var(--foreground-shadow);
   text-decoration: underline;
 }
 
 a.previewArticolo .cover {
   height: 280px;
+  width: 100%;
   transform: scale(
     1.02
   ); /* Per nascondere gli eventuali bordi dell'immagine di copertina */
@@ -25,29 +22,36 @@ a.previewArticolo .cover {
 a.previewArticolo .testo {
   margin: 28px;
   height: fit-content;
-  position: relative;
 }
 
-a .titolo {
+a.previewArticolo .titolo {
   margin: 28px;
   margin-bottom: 7px;
   font-family: var(--slab);
   font-weight: 500;
 }
 
-a .estratto {
+a.previewArticolo .estratto {
   margin: 0 28px;
   margin-bottom: 7px;
 }
 
-a .estratto {
-  margin: 0 28px;
-  margin-bottom: 7px;
+a.previewArticolo .footer {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 28px;
+  margin-top: 0;
+  align-items: flex-end;
 }
 
-a .dataPub {
-  margin: 0 28px;
-  margin-bottom: 28px;
-  justify-self: end;
-  align-self: end;
+a.previewArticolo .footer .categoria {
+  width: fit-content;
+  margin: 0;
+  padding: 4px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+a.previewArticolo .footer .dataPub {
+  margin: 8px 0 4px auto;
 }

@@ -1,10 +1,10 @@
 import Head from "next/head";
 
+const configurazione = require("../configurazione.json");
 import { APIWordPress } from "../utils";
 
 import PreviewArticolo from "../components/PreviewArticolo";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 
 import styles from "../styles/Home.module.css";
 
@@ -17,12 +17,16 @@ export async function getServerSideProps(context) {
   const articoli = await APIWordPress("posts", {
     page: pagina,
     per_page: 6,
+    categories_exclude: configurazione.categorieDaNascondere,
+    _embed: "wp:term",
     _fields: [
       "date",
       "slug",
       "title.rendered",
       "excerpt.rendered",
       "jetpack_featured_media_url",
+      "_links",
+      "_embedded",
     ],
   });
 
@@ -59,6 +63,8 @@ export default function Home({ articoli, pagina, succ }) {
                     titolo={articolo.title.rendered}
                     estratto={articolo.excerpt.rendered}
                     data={articolo.date}
+                    categoria={articolo?._embedded?.["wp:term"]?.[0]?.[0]}
+                    mostraCategoria
                     slug={articolo.slug}
                     key={index}
                   />
@@ -120,7 +126,9 @@ export default function Home({ articoli, pagina, succ }) {
             </svg>
           </a>
         </div>
-        <Footer />
+        <footer className={styles.footer}>
+          <p>thINK - News dall'ITIS Biella - © ITIS Q. SELLA - BIELLA</p>
+        </footer>
       </div>
     </home>
   );

@@ -1,14 +1,15 @@
 import Head from "next/head";
 import parse from "html-react-parser";
+import { useEffect } from "react";
 
 import { APIWordPress } from "../../utils";
 
 import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 
 import styles from "../../styles/Articolo.module.css";
 
 export async function getServerSideProps(context) {
+  const urlCorrente = "https://" + context.req.headers.host + context.req.url;
   let articolo = await APIWordPress("posts", {
     slug: context.query.slug,
     _embed: "wp:term",
@@ -25,81 +26,114 @@ export async function getServerSideProps(context) {
   articolo = articolo[0];
 
   return {
-    props: { articolo },
+    props: { articolo, urlCorrente },
   };
 }
 
-export default function Articolo({ articolo }) {
+export default function Articolo({ articolo, urlCorrente }) {
+  const accent = articolo?._embedded?.["wp:term"]?.[0]?.[0]?.slug;
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--accent', `var(--accent-${accent})`);
+  })
+
   return (
     <home>
       <Head>
         <title>thINK - News dall'ITIS Biella</title>
-        <script
-          async
-          src="https://platform.twitter.com/widgets.js"
-          charset="utf-8"
-        ></script>
-        <div id="fb-root"></div>
-        <script
-          async
-          defer
-          crossorigin="anonymous"
-          src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0"
-          nonce="zQ4M24rK"
-        ></script>
       </Head>
 
       <div className={styles.wrapper}>
         <Header />
-        <section className={styles.articolo}>
+        <section
+          className={styles.articolo}
+          style={{
+            border: `2px solid rgba(var(--accent-${accent}, var(--accent-default)), 0.2)`,
+          }}
+        >
           <h1>{parse(articolo.title.rendered)}</h1>
           {parse(articolo.content.rendered)}
           <div className={styles.fondo}>
             <div className={styles.categorie}>
-              Categorie:
-              {articolo._embedded["wp:term"][0].map((categoria, i) => {
-                if (i === 0) {
-                  return (
-                    <div className={styles.categoria}>
-                      <p>&nbsp;</p>
-                      <a href={`/categoria/${categoria.slug}`}>
-                        {categoria.name}
-                      </a>
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div className={styles.categoria}>
-                      <p>,&nbsp;</p>
-                      <a href={`/categoria/${categoria.slug}`}>
-                        {categoria.name}
-                      </a>
-                    </div>
-                  );
-                }
+              {articolo._embedded["wp:term"][0].map((categoria, key) => {
+                return (
+                  <a
+                    href={`/categoria/${categoria.slug}`}
+                    className={styles.categoria}
+                    key={key}
+                    style={{
+                      color: `rgb(var(--accent-${categoria.slug}, var(--accent-default)))`,
+                      background: `rgba(var(--accent-${categoria.slug}, var(--accent-default)), 0.2)`,
+                    }}
+                  >
+                    #{categoria.name}
+                  </a>
+                );
               })}
             </div>
             <div className={styles.social}>
               <a
-                href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-                class="twitter-share-button"
-                data-text={parse(articolo.title.rendered)}
-                data-size="large"
-                data-show-count="false"
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                  parse(articolo.title.rendered)
+                )}&url=${encodeURIComponent(urlCorrente)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.twitter}
               >
-                Twitta
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="feather feather-twitter"
+                >
+                  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                </svg>
               </a>
-              <div
-                class="fb-share-button"
-                data-layout="button"
-                data-size="large"
-              />
+              <a
+                href={`https://www.facebook.com/sharer.php?u=${encodeURIComponent(
+                  urlCorrente
+                )}&t=${encodeURIComponent(
+                  parse(articolo.title.rendered)
+                )}&display=popup`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="feather feather-facebook"
+                >
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+              </a>
             </div>
           </div>
         </section>
+        <footer className={styles.footer}>
+          <p>thINK - News dall'ITIS Biella - © ITIS Q. SELLA - BIELLA</p>
+        </footer>
       </div>
-
-      <Footer />
+      <style global jsx>{`
+        body {
+          background: rgba(var(--accent-${accent}, var(--accent-default)), 0.15);
+        }
+        header p {
+          color: rgb(var(--accent));
+        }
+      `}</style>
     </home>
   );
 }

@@ -31,27 +31,12 @@ section.articoli {
   align-items: center;
   padding: 12px;
   border-radius: 6px;
-  background: var(--foreground);
+  background: #fff;
   text-decoration: none;
 }
 
 .paginazione a svg {
   margin: 0 2px;
-}
-
-.paginazione a:hover {
-  box-shadow: 5px 5px 15px var(--foreground-shadow);
-}
-
-.categoria {
-  background-color: var(--foreground);
-  padding: 24px;
-  margin-bottom: 20px;
-  border-radius: 16px;
-}
-
-.categoria h2 {
-  margin: 0;
 }
 
 @media screen and (max-width: 700px) {

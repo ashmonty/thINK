@@ -1,10 +1,11 @@
 import Head from "next/head";
 
+import { useEffect } from "react";
+
 import { APIWordPress } from "../../utils";
 
 import PreviewArticolo from "../../components/PreviewArticolo";
 import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 
 import styles from "../../styles/Home.module.css";
 
@@ -50,6 +51,18 @@ export async function getServerSideProps(context) {
 }
 
 export default function Home({ articoli, pagina, categoria, succ }) {
+  const accent = categoria.slug;
+  useEffect(() => {
+    document.body.style.backgroundColor = `rgba(var(--accent-${accent}, var(--accent-default)), 0.1)`;
+    document.documentElement.style.setProperty(
+      "--accent",
+      `rgb(var(--accent-${accent}, var(--accent-default))`
+    );
+    document.documentElement.style.setProperty(
+      "--text",
+      `rgb(var(--accent-${accent}, var(--accent-default))`
+    );
+  });
   return (
     <home>
       <Head>
@@ -58,9 +71,9 @@ export default function Home({ articoli, pagina, categoria, succ }) {
 
       <div className={styles.wrapper}>
         <Header />
-        <div className={styles.categoria}>
-          <h2>Categoria: {categoria?.name}</h2>
-        </div>
+
+        <h2>#{categoria?.name}</h2>
+
         <section className={styles.articoli}>
           {(() => {
             try {
@@ -71,12 +84,15 @@ export default function Home({ articoli, pagina, categoria, succ }) {
                     titolo={articolo.title.rendered}
                     estratto={articolo.excerpt.rendered}
                     data={articolo.date}
+                    categoria={categoria}
+                    background={`rgba(255, 255, 255, 0.7)`}
                     slug={articolo.slug}
                     key={index}
                   />
                 );
               });
-            } catch {
+            } catch (err) {
+              console.log(err);
               return (
                 <div style={{ marginBottom: "192px" }}>
                   <h1>404</h1>
@@ -132,7 +148,9 @@ export default function Home({ articoli, pagina, categoria, succ }) {
             </svg>
           </a>
         </div>
-        <Footer />
+        <footer className={styles.footer}>
+          <p>thINK - News dall'ITIS Biella - © ITIS Q. SELLA - BIELLA</p>
+        </footer>
       </div>
     </home>
   );

@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 const qs = require("qs");
-const config = require("./config.json");
+const configurazione = require("./configurazione.json");
 
 export async function APIWordPress(endpoint, opzioni) {
   let query;
@@ -8,7 +8,7 @@ export async function APIWordPress(endpoint, opzioni) {
     query = "?" + qs.stringify(opzioni, { encode: false });
   }
 
-  const res = await fetch(config.urlAPI + endpoint + query);
+  const res = await fetch(configurazione.urlAPI + endpoint + query);
   const data = await res.json();
   return await data;
 }

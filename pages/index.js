@@ -9,7 +9,25 @@ import Header from "../components/Header";
 import styles from "../styles/Home.module.css";
 
 export async function getServerSideProps(context) {
-  let pagina = parseInt(context.query.p) || 1;
+
+
+  // Se è presente un post id nella query, si reindirizza l'utente alla pagina dell'articolo 
+  if (context.query.p) {
+    const slugArticolo = await APIWordPress(`posts/${context.query.p}`, {
+      _fields: [
+        "slug",
+      ],
+    });
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/articolo/${slugArticolo.slug}`
+      }
+    }
+  }
+
+
+  let pagina = parseInt(context.query.page) || 1;
   if (pagina < 1) {
     pagina = 1;
   }
@@ -83,7 +101,7 @@ export default function Home({ articoli, pagina, succ }) {
         </section>
         <div className={styles.paginazione}>
           <a
-            href={`/?p=${pagina - 1}`}
+            href={pagina - 1 === 1 ? "/" : `?page=${pagina - 1}`}
             className={pagina > 1 ? "" : "visibilityHidden"}
           >
             <svg
@@ -105,7 +123,7 @@ export default function Home({ articoli, pagina, succ }) {
           </a>
 
           <a
-            href={`/?p=${pagina + 1}`}
+            href={`/?page=${pagina + 1}`}
             className={succ ? "" : "visibilityHidden"}
           >
             <span className={styles.nascondiMobile}>Pagina successiva</span>

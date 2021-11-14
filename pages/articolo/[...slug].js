@@ -15,6 +15,8 @@ export async function getServerSideProps(context) {
     _embed: "wp:term",
     _fields: [
       "date",
+      "excerpt",
+      "jetpack_featured_media_url",
       "title.rendered",
       "content.rendered",
       "categories",
@@ -34,13 +36,34 @@ export default function Articolo({ articolo, urlCorrente }) {
   const accent = articolo?._embedded?.["wp:term"]?.[0]?.[0]?.slug;
 
   useEffect(() => {
-    document.documentElement.style.setProperty('--accent', `var(--accent-${accent})`);
-  })
+    document.documentElement.style.setProperty(
+      "--accent",
+      `var(--accent-${accent})`
+    );
+  });
 
   return (
     <home>
       <Head>
         <title>thINK - News dall'ITIS Biella</title>
+
+        {/* Meta tags per le preview su Twitter, Facebook, Discord etc. */} 
+        <meta property="og:title" content={articolo.title.rendered} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={urlCorrente} />
+        <meta
+          property="og:image"
+          content={articolo?.jetpack_featured_media_url}
+        />
+        <meta
+          property="og:description"
+          content={articolo?.excerpt?.rendered
+            .replace(/<[^>]*>?/gm, "")
+            .replace(/\[&hellip;\]/gm, "...")}
+        />
+        <meta property="og:locale" content="it_IT" />
+        <meta property="og:site_name" content="thINK - News dall'ITIS Biella" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
 
       <div className={styles.wrapper}>
@@ -128,7 +151,10 @@ export default function Articolo({ articolo, urlCorrente }) {
       </div>
       <style global jsx>{`
         body {
-          background: rgba(var(--accent-${accent}, var(--accent-default)), 0.15);
+          background: rgba(
+            var(--accent-${accent}, var(--accent-default)),
+            0.15
+          );
         }
         header p {
           color: rgb(var(--accent));

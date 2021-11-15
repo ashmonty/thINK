@@ -67,6 +67,10 @@ export default function Home({ articoli, pagina, categoria, succ }) {
     <home>
       <Head>
         <title>thINK - News dall'ITIS Biella</title>
+        <link
+          rel="icon"
+          href="https://notizie.itis.biella.it/wp-content/uploads/2021/11/think-150x150.jpg"
+        />
       </Head>
 
       <div className={styles.wrapper}>

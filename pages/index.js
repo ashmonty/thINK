@@ -9,23 +9,18 @@ import Header from "../components/Header";
 import styles from "../styles/Home.module.css";
 
 export async function getServerSideProps(context) {
-
-
-  // Se è presente un post id nella query, si reindirizza l'utente alla pagina dell'articolo 
+  // Se è presente un post id nella query, si reindirizza l'utente alla pagina dell'articolo
   if (context.query.p) {
     const slugArticolo = await APIWordPress(`posts/${context.query.p}`, {
-      _fields: [
-        "slug",
-      ],
+      _fields: ["slug"],
     });
     return {
       redirect: {
         permanent: false,
-        destination: `/articolo/${slugArticolo.slug}`
-      }
-    }
+        destination: `/articolo/${slugArticolo.slug}`,
+      },
+    };
   }
-
 
   let pagina = parseInt(context.query.page) || 1;
   if (pagina < 1) {
@@ -67,6 +62,10 @@ export default function Home({ articoli, pagina, succ }) {
     <home>
       <Head>
         <title>thINK - News dall'ITIS Biella</title>
+        <link
+          rel="icon"
+          href="https://notizie.itis.biella.it/wp-content/uploads/2021/11/think-150x150.jpg"
+        />
       </Head>
 
       <div className={styles.wrapper}>

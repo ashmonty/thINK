@@ -46,8 +46,12 @@ export default function Articolo({ articolo, urlCorrente }) {
     <home>
       <Head>
         <title>thINK - News dall'ITIS Biella</title>
+        <link
+          rel="icon"
+          href="https://notizie.itis.biella.it/wp-content/uploads/2021/11/think-150x150.jpg"
+        />
 
-        {/* Meta tags per le preview su Twitter, Facebook, Discord etc. */} 
+        {/* Meta tags per le preview su Twitter, Facebook, Discord etc. */}
         <meta property="og:title" content={articolo.title.rendered} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={urlCorrente} />
@@ -75,7 +79,9 @@ export default function Articolo({ articolo, urlCorrente }) {
           }}
         >
           <h1>{parse(articolo.title.rendered)}</h1>
-          {parse(articolo.content.rendered)}
+          <div className={styles.contenuto}>
+            {parse(articolo.content.rendered)}
+          </div>
           <div className={styles.fondo}>
             <div className={styles.categorie}>
               {articolo._embedded["wp:term"][0].map((categoria, key) => {
@@ -157,6 +163,9 @@ export default function Articolo({ articolo, urlCorrente }) {
           );
         }
         header p {
+          color: rgb(var(--accent));
+        }
+        footer p {
           color: rgb(var(--accent));
         }
       `}</style>

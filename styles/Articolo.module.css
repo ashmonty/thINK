@@ -32,6 +32,10 @@ div.wrapper {
   color: var(--accent);
 }
 
+div.contenuto {
+  line-height: 28px;
+}
+
 div.fondo {
   display: flex;
   align-items: flex-end;

@@ -82,6 +82,17 @@ figure.wp-block-image {
   overflow: hidden;
 }
 
+blockquote {
+  border-left: 2px solid rgb(var(--accent));
+  font-style: italic;
+  margin: 0;
+}
+
+blockquote > * {
+  margin: 10px;
+  padding: 4px;
+}
+
 footer {
   margin-top: auto;
 }

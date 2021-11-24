@@ -11,11 +11,12 @@
 
   /* Gli accent per le varie categorie */
   --accent-h2oggi-scienze-e-tecnologia: 41, 191, 18;
-  --accent-area-discussione: 136, 118, 254; /* Da cambiare */
-  --accent-talking-about-discussione-su-temi: 91, 146, 121; /* Da cambiare */
-  --accent-onda-studentesca-vita-scolastica: 236, 105, 31; /* Da cambiare */
-  --accent-oltre-agli-articoli-artecinema-e-lettere: 236, 105, 31; /* Da cambiare */
+  --accent-area-discussione: 136, 118, 254;
+  --accent-talking-about-discussione-su-temi: 136, 118, 254;
+  --accent-onda-studentesca-vita-scolastica: 236, 105, 31;
+  --accent-oltre-agli-articoli-artecinema-e-lettere: 230, 57, 70;
   --accent-itis-us: 239, 117, 48;
+  --accent-sportellate-sport: 58, 134, 255;
   --accent-default: 30, 98, 153;
 }
 

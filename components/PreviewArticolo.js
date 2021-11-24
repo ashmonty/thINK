@@ -34,7 +34,7 @@ export default class PreviewArticolo extends React.Component {
                     background: `rgba(var(--accent-${this.props.categoria.slug}, var(--accent-default)), 0.18)`,
                   }}
                 >
-                  #{this.props.categoria.name}
+                  #{this.props.categoria.name.split(":")[0]}
                 </p>
               );
             }

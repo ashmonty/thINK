@@ -1,38 +1,27 @@
 import Head from "next/head";
 
-const configurazione = require("../configurazione.json");
-import { APIWordPress } from "../utils";
+import { APIWordPress } from "../../utils";
 
-import PreviewArticolo from "../components/PreviewArticolo";
-import Header from "../components/Header";
-import WidgetRicerca from "../components/WidgetRicerca";
+import PreviewArticolo from "../../components/PreviewArticolo";
+import Header from "../../components/Header";
+import WidgetRicerca from "../../components/WidgetRicerca";
 
-import styles from "../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
 
 export async function getServerSideProps(context) {
-  // Se è presente un post id nella query, si reindirizza l'utente alla pagina dell'articolo
-  if (context.query.p) {
-    const slugArticolo = await APIWordPress(`posts/${context.query.p}`, {
-      _fields: ["slug"],
-    });
-    return {
-      redirect: {
-        permanent: false,
-        destination: `/articolo/${slugArticolo.slug}`,
-      },
-    };
-  }
-
   let pagina = parseInt(context.query.page) || 1;
   if (pagina < 1) {
     pagina = 1;
   }
 
-  const articoli = await APIWordPress("posts", {
+  const ricerca = context.query.slug[0];
+
+  const articoli = await APIWordPress("search", {
+    search: context.query.slug[0],
     page: pagina,
     per_page: 6,
-    categories_exclude: configurazione.categorieDaNascondere,
-    _embed: "wp:term",
+    context: "embed",
+    _embed: "true",
     _fields: [
       "date",
       "slug",
@@ -47,6 +36,7 @@ export async function getServerSideProps(context) {
   const paginaSuccessiva = await APIWordPress("posts", {
     page: pagina + 1,
     per_page: 6,
+    search: context.query.slug,
     _fields: ["pid"],
   });
 
@@ -58,11 +48,11 @@ export async function getServerSideProps(context) {
   });
 
   return {
-    props: { articoli, pagina, succ, categorie },
+    props: { articoli, categorie, ricerca, pagina, succ },
   };
 }
 
-export default function Home({ articoli, pagina, succ, categorie }) {
+export default function Home({ articoli, categorie, ricerca, pagina, succ }) {
   return (
     <home>
       <Head>
@@ -76,25 +66,33 @@ export default function Home({ articoli, pagina, succ, categorie }) {
       <div className={styles.wrapper}>
         <Header />
 
-       <WidgetRicerca categorie={categorie} />
+        <WidgetRicerca categorie={categorie} />
+
+        <h2>Risultati della ricerca per: "{ricerca}"</h2>
+
         <section className={styles.articoli}>
           {(() => {
             try {
               return articoli.map((articolo, index) => {
+                console.log(
+                  articolo._embedded?.self?.[0]?._links?.["wp:term"]?.[0]
+                );
                 return (
                   <PreviewArticolo
-                    cover={articolo.jetpack_featured_media_url}
-                    titolo={articolo.title.rendered}
-                    estratto={articolo.excerpt.rendered}
-                    data={articolo.date}
+                    cover={
+                      articolo?._embedded?.self?.[0]?.jetpack_featured_media_url
+                    }
+                    titolo={articolo?._embedded?.self?.[0]?.title?.rendered}
+                    estratto={articolo?._embedded?.self?.[0]?.excerpt?.rendered}
+                    data={articolo?._embedded?.self?.[0]?.date}
+                    slug={articolo?._embedded?.self?.[0]?.slug}
                     categoria={articolo?._embedded?.["wp:term"]?.[0]?.[0]}
-                    mostraCategoria
-                    slug={articolo.slug}
                     key={index}
                   />
                 );
               });
-            } catch {
+            } catch (err) {
+              console.log(err);
               return (
                 <div style={{ marginBottom: "192px" }}>
                   <h1>404</h1>
@@ -107,7 +105,7 @@ export default function Home({ articoli, pagina, succ, categorie }) {
         </section>
         <div className={styles.paginazione}>
           <a
-            href={pagina - 1 === 1 ? "/" : `?page=${pagina - 1}`}
+            href={pagina - 1 === 1 ? "?" : `?page=${pagina - 1}`}
             className={pagina > 1 ? "" : "visibilityHidden"}
           >
             <svg
@@ -129,7 +127,7 @@ export default function Home({ articoli, pagina, succ, categorie }) {
           </a>
 
           <a
-            href={`/?page=${pagina + 1}`}
+            href={`?page=${pagina + 1}`}
             className={succ ? "" : "visibilityHidden"}
           >
             <span className={styles.nascondiMobile}>Pagina successiva</span>

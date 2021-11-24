@@ -74,9 +74,6 @@ export default function Home({ articoli, categorie, ricerca, pagina, succ }) {
           {(() => {
             try {
               return articoli.map((articolo, index) => {
-                console.log(
-                  articolo._embedded?.self?.[0]?._links?.["wp:term"]?.[0]
-                );
                 return (
                   <PreviewArticolo
                     cover={
@@ -86,7 +83,7 @@ export default function Home({ articoli, categorie, ricerca, pagina, succ }) {
                     estratto={articolo?._embedded?.self?.[0]?.excerpt?.rendered}
                     data={articolo?._embedded?.self?.[0]?.date}
                     slug={articolo?._embedded?.self?.[0]?.slug}
-                    categoria={articolo?._embedded?.["wp:term"]?.[0]?.[0]}
+                    noStili
                     key={index}
                   />
                 );

@@ -48,23 +48,32 @@ export default class PreviewArticolo extends React.Component {
             })}
           </p>
         </div>
-        <style jsx>{`
-          #preview-articolo {
-            color: rgb(
-              var(--accent-${this.props.categoria?.slug}, var(--accent-default))
+        {(() => {
+          if (!this.props.nostili) {
+            return (
+              <style jsx>{`
+                #preview-articolo {
+                  color: rgb(
+                    var(
+                      --accent-${this.props.categoria?.slug},
+                      var(--accent-default)
+                    )
+                  );
+                  border: 2px solid
+                    rgba(
+                      var(
+                        --accent-${this.props?.categoria?.slug},
+                        var(--accent-default)
+                      ),
+                      0.2
+                    );
+                  background: ${this.props.background ||
+                  `rgba(var(--accent-${this.props?.categoria?.slug}, var(--accent-default)), 0.1)`};
+                }
+              `}</style>
             );
-            border: 2px solid
-              rgba(
-                var(
-                  --accent-${this.props?.categoria?.slug},
-                  var(--accent-default)
-                ),
-                0.2
-              );
-            background: ${this.props.background ||
-            `rgba(var(--accent-${this.props?.categoria?.slug}, var(--accent-default)), 0.1)`};
           }
-        `}</style>
+        })()}
       </a>
     );
   }

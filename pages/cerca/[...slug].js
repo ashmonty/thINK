@@ -16,12 +16,11 @@ export async function getServerSideProps(context) {
 
   const ricerca = context.query.slug[0];
 
-  const articoli = await APIWordPress("search", {
+  const articoli = await APIWordPress("posts", {
     search: context.query.slug[0],
     page: pagina,
     per_page: 6,
-    context: "embed",
-    _embed: "true",
+    _embed: "wp:term",
     _fields: [
       "date",
       "slug",
@@ -36,7 +35,7 @@ export async function getServerSideProps(context) {
   const paginaSuccessiva = await APIWordPress("posts", {
     page: pagina + 1,
     per_page: 6,
-    search: context.query.slug,
+    search: context.query.slug[0],
     _fields: ["pid"],
   });
 
@@ -66,9 +65,12 @@ export default function Home({ articoli, categorie, ricerca, pagina, succ }) {
       <div className={styles.wrapper}>
         <Header />
 
-        <WidgetRicerca categorie={categorie} />
-
-        <h2>Risultati della ricerca per: "{ricerca}"</h2>
+        <div className={styles.wrapperRicerca}>
+          <h2>
+            Risultati della ricerca per <i>{ricerca}</i>
+          </h2>
+          <WidgetRicerca categorie={categorie} />
+        </div>
 
         <section className={styles.articoli}>
           {(() => {
@@ -76,14 +78,13 @@ export default function Home({ articoli, categorie, ricerca, pagina, succ }) {
               return articoli.map((articolo, index) => {
                 return (
                   <PreviewArticolo
-                    cover={
-                      articolo?._embedded?.self?.[0]?.jetpack_featured_media_url
-                    }
-                    titolo={articolo?._embedded?.self?.[0]?.title?.rendered}
-                    estratto={articolo?._embedded?.self?.[0]?.excerpt?.rendered}
-                    data={articolo?._embedded?.self?.[0]?.date}
-                    slug={articolo?._embedded?.self?.[0]?.slug}
-                    noStili
+                    cover={articolo.jetpack_featured_media_url}
+                    titolo={articolo.title.rendered}
+                    estratto={articolo.excerpt.rendered}
+                    data={articolo.date}
+                    categoria={articolo?._embedded?.["wp:term"]?.[0]?.[0]}
+                    mostraCategoria
+                    slug={articolo.slug}
                     key={index}
                   />
                 );

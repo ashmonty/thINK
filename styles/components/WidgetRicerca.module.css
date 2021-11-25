@@ -3,13 +3,10 @@
   padding: 12px;
   position: relative;
   margin-left: auto;
-  margin-bottom: 24px;
   overflow: auto;
   cursor: pointer;
   width: fit-content;
   max-width: 90vw;
-
-  background: var(--background);
 }
 
 .ricerca .thumb {
@@ -35,8 +32,6 @@
 .ricerca h2 {
   margin: 0;
   margin-bottom: 12px;
-  
-  
 }
 
 .ricerca input.testo {
@@ -48,6 +43,7 @@
   font-size: inherit;
   font-family: inherit;
   font-weight: inherit;
+  background-color: none;
   color: inherit;
   border-radius: 2px;
   margin-right: 4px;
@@ -70,7 +66,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  position:relative;
+  position: relative;
   top: 4px;
 }
 

@@ -1,19 +1,16 @@
-import Router from "next/router";
-
 import styles from "../styles/components/WidgetRicerca.module.css";
 
 export default function WidgetRicerca(props) {
   const expand = (e) => {
     document.querySelector("#thumb").style.display = "none";
     document.querySelector("#expanded").style.display = "block";
-    document.querySelector("#widgetRicerca").style.padding = "24px";
-    document.querySelector("#widgetRicerca").style.cursor = "default";
-    document.querySelector("#widgetRicerca").style.border = "1px solid var(--text)";
+    document.querySelector("#widgetRicerca").style =
+      "padding: 24px; cursor: default; border: 1px solid var(--text); background: var(--background)";
   };
 
   const redirectToSearchPage = (e) => {
     e.preventDefault();
-    Router.push(`/cerca/${e.target.ricerca.value}`);
+    window.location.href = `/cerca/${e.target.ricerca.value}`;
   };
   return (
     <div className={styles.ricerca} id="widgetRicerca" onClick={expand}>

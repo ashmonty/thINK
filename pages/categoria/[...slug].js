@@ -6,6 +6,7 @@ import { APIWordPress } from "../../utils";
 
 import PreviewArticolo from "../../components/PreviewArticolo";
 import Header from "../../components/Header";
+import WidgetRicerca from "../../components/WidgetRicerca";
 
 import styles from "../../styles/Home.module.css";
 
@@ -45,12 +46,16 @@ export async function getServerSideProps(context) {
   // Se non c'è una pagina successiva, la variabile "succ" è settata su false, per nascondere il tasto per la pagina successiva
   const succ = paginaSuccessiva?.data?.status !== 400;
 
+  const categorie = await APIWordPress("categories", {
+    _fields: ["name", "slug"],
+  });
+
   return {
-    props: { articoli, pagina, categoria, succ },
+    props: { articoli, pagina, categorie, categoria, succ },
   };
 }
 
-export default function Home({ articoli, pagina, categoria, succ }) {
+export default function Home({ articoli, pagina, categorie, categoria, succ }) {
   const accent = categoria.slug;
   useEffect(() => {
     document.body.style.backgroundColor = `rgba(var(--accent-${accent}, var(--accent-default)), 0.1)`;
@@ -76,7 +81,11 @@ export default function Home({ articoli, pagina, categoria, succ }) {
       <div className={styles.wrapper}>
         <Header />
 
-        <h2>#{categoria?.name}</h2>
+        <h2></h2>
+        <div className={styles.wrapperRicerca}>
+          <h2>Categoria #{categoria?.name}</h2>
+          <WidgetRicerca categorie={categorie} />
+        </div>
 
         <section className={styles.articoli}>
           {(() => {

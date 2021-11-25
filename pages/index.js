@@ -76,7 +76,9 @@ export default function Home({ articoli, pagina, succ, categorie }) {
       <div className={styles.wrapper}>
         <Header />
 
-       <WidgetRicerca categorie={categorie} />
+        <div className={styles.wrapperRicerca}>
+          <WidgetRicerca categorie={categorie} />
+        </div>
         <section className={styles.articoli}>
           {(() => {
             try {
